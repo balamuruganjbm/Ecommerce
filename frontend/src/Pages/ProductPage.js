@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Row,
 	Col,
@@ -8,11 +8,22 @@ import {
 	Button,
 	ListGroupItem,
 } from "react-bootstrap";
-import products from "../products";
 import { Link } from "react-router-dom";
 import Rating from "../components/Rating";
+import axios from "axios";
 function ProductPage({ match }) {
-	const selectedProduct = products.find((pdt) => pdt._id === match.params.id);
+	const [selectedProduct, setSelectedProduct] = useState([]);
+	useEffect(() => {
+		const getProduct = async () => {
+			try {
+				const { data } = await axios.get(`/api/products/${match.params.id}`);
+				setSelectedProduct(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getProduct();
+	}, [match.params.id]);
 	return (
 		<>
 			<Link className="btn btn-primary my-3" to="/">
