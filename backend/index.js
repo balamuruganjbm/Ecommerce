@@ -1,16 +1,19 @@
-const express = require("express");
-const dotenv = require("dotenv").config();
+import express from "express";
+import dotenv from "dotenv";
 const app = express();
-const products = require("./data/products");
+import dbConnect from "./config/db.js";
+import productRoutes from "../backend/routes/productRoutes.js";
+import { errorHandler, notFound } from "./helpers/errorHandlers.js";
 
-app.get("/api/products", (req, res) => {
-	res.json(products);
-});
+//config
+dotenv.config();
+dbConnect();
 
-app.get("/api/products/:id", (req, res) => {
-	const selectedProduct = products.find((pdt) => pdt._id === req.params.id);
-	res.json(selectedProduct);
-});
+//Routes
+app.use("/api/products", productRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {

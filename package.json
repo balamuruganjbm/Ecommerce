@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Ecommerce site built using MERN stack",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
 		"start": "node backend/index.js",
 		"server": "nodemon backend/index.js",
@@ -20,8 +21,10 @@
 	},
 	"homepage": "https://github.com/balamuruganjbm/Ecommerce#readme",
 	"dependencies": {
+		"bcryptjs": "^2.4.3",
 		"dotenv": "^8.2.0",
-		"express": "^4.17.1"
+		"express": "^4.17.1",
+		"mongoose": "^5.10.9"
 	},
 	"devDependencies": {
 		"concurrently": "^5.3.0",
